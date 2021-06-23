@@ -1,0 +1,69 @@
+#ifndef POUPANCA_H
+#define POUPANCA_H
+
+class ContaDePoupanca{
+  private:
+    static float taxaDeJurosAnual;//para armazenar a taxa de juros anuais
+    float saldoDaPoupanca;//quantia que o poupador atualmente tem em depósito.
+  public:
+    void setsaldoDaPoupanca(float);
+    float getsaldoDaPoupanca();
+    ContaDePoupanca();//construtor
+    int calculeRendimentoMensal(void);
+    static void modifiqueTaxaDeJuros(float);
+};
+#endif
+
+
+#include "poupanca.h"
+
+//INICIALIZANDO O CONSTRUTOR
+ContaDePoupanca::ContaDePoupanca() { 
+  saldoDaPoupanca =0.0;
+} 
+void ContaDePoupanca::setsaldoDaPoupanca(float saldoDaPoupanca){
+  this->saldoDaPoupanca=saldoDaPoupanca;
+}
+float ContaDePoupanca::getsaldoDaPoupanca(){
+  return saldoDaPoupanca;
+}
+int ContaDePoupanca::calculeRendimentoMensal(void) {	
+  //saldo atual é o mesmo do saldo da poupanca?
+  return((saldoDaPoupanca*taxaDeJurosAnual)/12)+saldoDaPoupanca;	    
+		
+}
+void ContaDePoupanca::modifiqueTaxaDeJuros(float num){
+  taxaDeJurosAnual = num/100; //para retornar esta taxa
+}
+float ContaDePoupanca::taxaDeJurosAnual = 0.0; // definicao da variavel static inicializada com 0
+
+
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+Curso - Engenharia eletrica
+Lab 12 - tp*/
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+#include <stdio.h>
+using namespace std;
+
+#include "poupanca.h"
+#include "poupanca.cpp"
+int main() {
+  ContaDePoupanca poupador1, poupador2;
+  float aux;
+  cout<<"Este programa recebe os valores depositados na conta de dois poupadores e sua taxa de juros e retorna o seu rendimento. Insira o valor a ser depositado do poupador 1 "<<endl;
+  cin>>aux;
+  poupador1.setsaldoDaPoupanca(aux);
+  cout<<"Insira o valor a ser depositado do poupador 2 "<<endl;
+  cin>>aux;
+  poupador2.setsaldoDaPoupanca(aux);
+  cout<<"Informe a taxa de juros (%) "<<endl;
+  cin>>aux;
+  poupador1.modifiqueTaxaDeJuros(aux);
+  poupador2.modifiqueTaxaDeJuros(aux);
+  cout<<"O rendimento do poupador 1 é: R$ "<<poupador1.calculeRendimentoMensal()<<endl;
+  cout<<"O rendimento do poupador 2 é: R$ "<<poupador2.calculeRendimentoMensal();
+}

@@ -1,0 +1,134 @@
+#ifndef ESTACIONAMENTO_H
+#define ESTACIONAMENTO_H
+class Tempo {  //protótipo da classe Tempo
+  private:
+    int hora, minuto, segundo;
+  public:
+    Tempo();
+    void setHorario(int, int, int);
+    int totalSegundos(); //converte a hora, minuto e segundos em segundos
+};
+class Estacionamento {  // protótipo da classe Estacionamento
+  string placa;
+  string modelo;
+  Tempo horaEntrada;
+  Tempo horaSaida;
+  public:
+    Estacionamento();
+    void setPlaca(string);
+    void setModelo(string);
+    string getPlaca();
+    string getModelo();
+    void horarioEntrada(int,int,int); //informa a hora que o veículo entrou
+    void horarioSaida(int,int,int);  //informa a hora que o veículo saiu
+    int calculaHora(); //calcula o total de horas no estacionamento (*).
+    float valorEstacionamento(); //calcula o valor a ser pago em função da
+    //quantidade de horas
+    void imprimeDados(); // Imprime dados de um carro estacionado
+};
+#endif
+
+
+#include "Estacionamento.h"
+
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;//metodos da classe tempo
+Tempo::Tempo(){
+  hora=0;
+  minuto=0;
+  segundo=0;
+}
+void Tempo::setHorario(int hora, int minuto, int segundo){
+  this->hora=hora;
+  this->minuto=minuto;
+  this->segundo=segundo;
+}
+int Tempo::totalSegundos(){
+  return ((hora*3600)+(minuto*60)+segundo);
+  
+}
+
+//metodos da classe estacionamento
+Estacionamento::Estacionamento(){
+  placa="vazio";
+  modelo="vazio";
+  horaEntrada.setHorario(0,0,0);
+  horaSaida.setHorario(0,0,0);
+}
+void Estacionamento::setPlaca(string placa){
+  this->placa=placa;
+}
+void Estacionamento::setModelo(string modelo){
+  this->modelo=modelo;
+}
+string Estacionamento::getPlaca(){
+  return placa;
+}
+string Estacionamento::getModelo(){
+  return modelo;
+}
+
+void Estacionamento::horarioEntrada(int hora, int minuto, int segundo){
+  horaEntrada.setHorario(hora, minuto, segundo);
+}
+void Estacionamento::horarioSaida(int hora, int minuto, int segundo){
+  horaSaida.setHorario(hora, minuto, segundo);
+}
+int Estacionamento::calculaHora(){
+  /*int saida = horaSaida.totalSegundos();
+  int entrada = horaEntrada.totalSegundos();
+  int horas = (saida-entrada)/3600;
+  return horas;*/
+  return (horaSaida.totalSegundos()-horaEntrada.totalSegundos())/3600;
+}
+float Estacionamento::valorEstacionamento(){
+  return ceil(calculaHora()*1.5);
+}
+  
+void Estacionamento::imprimeDados(){
+  cout<<"Placa do seu carro: "<<getPlaca()<<endl;
+  cout<<"Modelo do seu carro: "<<getModelo()<<endl;
+  //cout<<"Tempo de entrada no estacionamento: "<<horarioEntrada();
+  cout<<"Valor a ser pago: R$"<<valorEstacionamento()<<endl;
+}
+
+
+/*Raissa Taina Pordeus Ferreira
+Curso - engenharia eletrica
+Matricula - 119211105
+Lab 10*/
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+#include "Estacionamento.cpp"
+int main() {
+  Estacionamento estacionamento_1;
+  string placa, modelo;
+  int hora_entrada, minuto_entrada, segundo_entrada, hora_saida, minuto_saida, segundo_saida;
+  cout << "Aqui voce pode saber qual o valor a ser pago por um estacionamento, dependendo do tempo que voce fique. Para isso precisamos que voce informe  placa do seu carro"<<endl;
+  cin>>placa;
+  estacionamento_1.setPlaca(placa);
+  cout<<"Agora o informe o modelo do seu carro"<<endl;
+  cin>>modelo;
+  estacionamento_1.setModelo(modelo);
+  cout<<"Que horas voce entrou no estacionamento?(Informe e de enter). Quais eram os minutos?(Informe e de enter). Quais os segundos?(Informe e de enter)."<<endl;
+  cin>>hora_entrada;
+  cin>>minuto_entrada;
+  cin>>segundo_entrada;
+  estacionamento_1.horarioEntrada(hora_entrada, minuto_entrada, segundo_entrada);
+  cout<<"Que horas voce saiu no estacionamento?(Informe e de enter). Quais eram os minutos?(Informe e de enter). Quais os segundos?(Informe e de enter)."<<endl;
+  cin>>hora_saida;
+  cin>>minuto_saida;
+  cin>>segundo_saida;
+  estacionamento_1.horarioSaida(hora_saida, minuto_saida, segundo_saida);
+  estacionamento_1.imprimeDados();
+
+}

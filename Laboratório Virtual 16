@@ -1,0 +1,212 @@
+//#include <string>		// Necessário para usar strings
+//using namespace std;
+
+#ifndef COBRANCA_H
+#define COBRANCA_H
+
+class Cobranca{
+
+  private:
+
+    float taxa_de_imposto;
+    string nome, CNPJ;
+    float faturamento_da_empresa;
+
+  public:  
+  
+    Cobranca(string, string, float);//construtor com parametros
+    float calcular_taxa_imposto();//mesmo sabendo que a taxa do imposto e de 17%, criei este metodo para fazer esse calculo pois isso muda de acordo com o faturamento da empresa
+    void setTaxa_de_imposto(int);
+    void setNome(string);
+    void setCNPJ(string);
+    void setFaturamento_da_empresa(float);
+    float getTaxa_de_imposto();
+    string getNome();
+    string getCNPJ();
+    float getFaturamento_da_empresa();
+};
+#endif
+
+
+
+#include <iostream>
+#include <stdlib.h>
+//#include <stdio.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+#include "cobranca.h"
+
+Cobranca::Cobranca(  string nome, string CNPJ, float faturamento_da_empresa){
+  this -> nome = nome;
+  this -> CNPJ = CNPJ;
+  this -> faturamento_da_empresa = faturamento_da_empresa;
+}
+void Cobranca::setTaxa_de_imposto(int taxa_de_imposto){
+  this -> taxa_de_imposto = taxa_de_imposto;
+}
+void Cobranca::setNome(string nome){
+  this -> nome = nome;
+}
+void Cobranca::setCNPJ(string CNPJ){
+  this -> CNPJ = CNPJ;
+}
+void Cobranca::setFaturamento_da_empresa(float faturamento_da_empresa){
+  this -> faturamento_da_empresa = faturamento_da_empresa;
+}
+float Cobranca::getTaxa_de_imposto(){
+  return taxa_de_imposto;
+}
+float Cobranca::getFaturamento_da_empresa(){
+  return faturamento_da_empresa;
+}
+string Cobranca::getNome(){
+  return nome;
+}
+string Cobranca::getCNPJ(){
+  return CNPJ;
+}
+float Cobranca::calcular_taxa_imposto(){
+  return taxa_de_imposto = (faturamento_da_empresa * (17.0/100));
+}
+
+
+//#include <string>
+//using namespace std;
+#include "cobranca.h"
+
+#ifndef PEQUENOPORTE_H
+#define PEQUENOPORTE_H
+
+class Pequenoporte : public Cobranca {
+
+  private:
+
+    float descontomaior, descontomenor;
+
+  public:
+
+    Pequenoporte( string , string , float );
+    float desconto_maior();//para quando for aplicado o desconto de 70%
+    float desconto_menor();//para quando for aplicado o desconto de 50%
+    
+    void setDescontomaior(int);
+    void setDescontomenor(int);
+    int getDescontomaior(void);
+    int getDescontomenor(void);
+    
+};
+#endif
+
+
+
+#include <iostream>
+#include <stdlib.h>
+//#include <stdio.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+
+#include "pequenoporte.h"
+#include "cobranca.h"
+
+//inicializando o construtor
+Pequenoporte::Pequenoporte(  string nome, string CNPJ, float faturamento_da_empresa) : Cobranca(nome, CNPJ, faturamento_da_empresa){
+
+  this -> descontomaior = descontomaior = (30.0/100);
+  this -> descontomenor = descontomenor = (50.0/100);
+}
+//metodos set
+void Pequenoporte::setDescontomaior(int descontomaior){
+  this -> descontomaior = descontomaior;
+}
+void Pequenoporte::setDescontomenor(int descontomenor){
+  this -> descontomenor = descontomenor;
+}
+//metodos get
+int Pequenoporte::getDescontomaior(){
+  return descontomaior;
+}
+int Pequenoporte::getDescontomenor(){
+  return descontomenor;
+}
+//metodo para descontar da taxa de juros o desconto de 70% caso a empresa de pequeno porte esteja cadastrada no SIMPLES
+float Pequenoporte :: desconto_maior(){
+  return getTaxa_de_imposto() * descontomaior;//usando um atributo da classe base na classe derivada
+}
+//metodo para descontar da taxa de juros o desconto de 50% caso a empresa de pequeno porte nao esteja cadastrada no SIMPLES
+float Pequenoporte :: desconto_menor(){
+   return getTaxa_de_imposto() * descontomenor;
+}
+
+
+
+/*Raissa Taina Pordeus Ferreira
+Curso - eng eletrica
+Matricula - 119211105
+Lab 16-tp*/
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+#include <stdio.h>
+using namespace std;
+
+#include "cobranca.cpp" 
+#include "metodos_pequenoporte.cpp"
+
+int main() {
+
+  string nome, CNPJ;
+  float faturamento_da_empresa;
+  int aux;
+  
+  Pequenoporte empresa("vazio", "vazio", 0.0); //é necessario iniciar o construtor passando os
+  //os atributos definidos no cosntrutor definidos 
+
+
+  cout << "Este programa calcula a taxa de imposto da sua empresa de pequeno ou medio porte."<<endl<<"Sua empresa eh pequeno porte? ( 1 -sim / 2 - nao)" << endl;
+  cin>>aux;
+  cout<<"Informe o nome " << endl;
+  setbuf(stdin, NULL );
+  getline(cin, nome);
+  setbuf(stdin, NULL );
+  empresa.setNome(nome);
+
+  cout<<"Informe o CNPJ ";
+  setbuf(stdin, NULL );
+  getline(cin, CNPJ);
+  setbuf(stdin, NULL );
+  empresa.setCNPJ(CNPJ);
+
+  cout<<"Qual o faturamento?";
+  cin>>faturamento_da_empresa;
+  empresa.setFaturamento_da_empresa(faturamento_da_empresa/* passar o valor do faturamento */);
+
+  
+
+  
+  if(aux == 1){
+    cout<<"Sua taxa de imposto sem desconto eh: "<<empresa.calcular_taxa_imposto()<<endl;
+    cout<<"Esta cadastrada no simples? ( 1 -sim / 2 - nao)";
+    cin>>aux;
+    if(aux == 1){
+      cout<<"Como sua empresa eh de pequeno porte e estah cadastrada no SIMPLES, voce tem direito a um desconto de 70% na sua taxa de imposto. Com isso seu imposto eh: "<<  empresa.desconto_maior() << endl;
+     //chama o metodo void desconto_maior();
+    }
+    else{
+      cout<<"Sua empresa eh de pequeno porte mas nao estah cadastrada no SIMPLES, voce tem direito a um desconto de 50% na sua taxa de imposto. Com isso seu imposto eh: "<<  empresa.desconto_menor() << endl;
+      //chama o metodo desconto_menor();
+    }
+
+  }
+  else if (aux ==2){
+    cout<<"Sua taxa de imposto eh: "<<empresa.calcular_taxa_imposto()<<endl;
+  }
+
+  return 0;
+
+}
+

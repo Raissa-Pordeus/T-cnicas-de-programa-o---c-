@@ -1,0 +1,37 @@
+/*Escreva um programa que crie uma estrutura chamada Ponto, contendo apenas a posição x e y (inteiros) do ponto. Declare 2 pontos, leia a posição (coordenadas x e y) de cada um e calcule a distância entre eles. Apresente no final a distância entre os dois pontos, com uma precisão de duas casas decimais.
+
+Raissa Taina Pordeus Ferreira
+Curso - Engenharia elétrica
+Matrícula - 119211105
+Lab - 01*/
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+//struct chamada ponto
+struct Ponto{
+  int x, y;
+
+};
+
+int main() {
+  //declarei duas variaveis do tipo ponot que irao receber seus respectivos x's e y's.
+  Ponto coordenada1, coordenada2;
+  //cout<<"Qual o seu x na coordenada 1?"<<endl;
+  cin>>coordenada1.x;
+  //cout<<"Qual o seu y na coordenada 1?"<<endl;
+  cin>>coordenada1.y;
+  //cout<<"Qual o seu x na coordenada 2?"<<endl;
+  cin>>coordenada2.x;
+  //cout<<"Qual o seu y na coordenada 2?"<<endl;
+  cin>>coordenada2.y;
+
+  //calculei a distancia dos pontos como pedido na questao
+  float distancia;
+  distancia = sqrt(pow((coordenada2.x - coordenada1.x), 2) + pow((coordenada2.y - coordenada1.y),2));
+  //para limitar o resultado a duas casas decimais
+  cout<<fixed<<setprecision(2);
+  cout << "A distancia entre os pontos e : "<< distancia;
+}

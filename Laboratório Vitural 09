@@ -1,0 +1,84 @@
+#ifndef CIRCUITO_H
+#define CIRCUITO_H
+
+class Circuito{
+  private:
+    float resistencia, corrente;
+  public:
+    Circuito();//construtor
+    void setResistencia(float);
+    void setCorrente(float);
+
+    //para retrnar o valor:
+    float getResistencia();
+    float getCorrente();
+    //metodo para calcular a voltagem E
+    float Calcula_Voltagem();
+    //metodo para calcular a potencia dissipada P
+    float Calcula_Potencia();
+};
+#endif
+
+
+#include "Circuito.h"
+
+Circuito::Circuito(){ // costrutor para instanciacao dos atributos
+  resistencia = 0.0;
+  corrente = 0.0;
+}
+//metodos set
+void Circuito::setResistencia(float resistencia){
+  this->resistencia=resistencia;
+}
+void Circuito::setCorrente(float corrente){
+  this->corrente=corrente;
+}
+//metodos get
+float Circuito::getResistencia(){
+  return resistencia;
+}
+float Circuito::getCorrente(){
+  return corrente;
+}
+float Circuito::Calcula_Voltagem(){
+  return resistencia*corrente;
+}
+float Circuito::Calcula_Potencia(){
+  return (corrente*(Calcula_Voltagem()));
+}
+
+
+
+/*Raissa Taina Pordeus Ferreira
+Curso - engenharia elétrica
+Lab 09
+Matrícula - 119211105*/
+
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+
+using namespace std;
+
+#include "Circuito.cpp"
+
+int main() {
+  Circuito c1[5];  //cria um vetor de 5 posições
+  float resist, corrent;
+  cout<<"Este programa tem como finalidade calcular a tensao e potencia de ate 5 circuitos."<<endl;
+	for (int i=0; i<6; i++){
+    cout<<"Digite a resistencia do circuito "<<i<<": "<<endl;
+		cin>>resist;
+    cout<<"Digite a corrente do circuito "<<i<<": "<<endl;
+		cin>>corrent;
+    c1[i].setResistencia(resist);
+	  c1[i].setCorrente(corrent);
+    cout<<"Resultado do calulo da voltagem: ";
+    cout<<c1[i].Calcula_Voltagem()<<endl;
+    cout<<"Resultado do calculo da potencia: ";
+    cout<<c1[i].Calcula_Potencia()<<endl;
+    cout<<endl<<endl;
+  }
+}
+

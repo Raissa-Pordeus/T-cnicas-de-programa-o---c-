@@ -1,0 +1,138 @@
+#ifndef IMOVEL_H
+#define IMOVEL_H
+#include <string>		// Necessário para usar strings
+using namespace std;
+
+class Imovel{
+  public:
+    string nome;
+    string rua;
+    float preco;
+  
+    Imovel();
+};
+#endif
+
+
+#ifndef NOVO_H  // evita erros de redefinição de arquivos
+#define NOVO_H // define o arquivo
+
+#include "imovel.h" //inclui o arquivo imovel.h ao arquivo atual
+/*a. Crie uma classe Novo, que herda Imóvel e possui uma porcentagem de adicional no preço (que é fixa). Crie métodos de acesso e impressão deste valor adicional. */
+
+class Novo : public Imovel{
+  private:
+    float porcentagem;
+  public:
+   
+    Novo(float);
+    
+    void Imprime_Porcentagem_Adicional();
+    
+};
+#endif
+
+
+/*b. Crie uma classe Velho, que herda Imóvel e possui uma porcentagem de desconto no preço (que é fixa). Crie métodos de acesso e impressão para este desconto.*/
+#ifndef VELHO_H  // evita erros de redefinição de arquivos
+#define VELHO_H // define o arquivo
+
+#include "imovel.h" //inclui o arquivo imovel.h ao arquivo atual
+class Velho : public Imovel{
+  private:
+    float Porcentagem_desconto_preco;
+  public:
+    Velho(float);
+    void Imprime_Desconto();
+};
+#endif
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+using namespace std;
+#include "imovel.h"
+Imovel::Imovel(){
+  this -> nome = "vazio";
+  this -> rua = "vazio";
+  this -> preco = 100000.0;
+}
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <math.h>
+
+using namespace std;
+#include "novo.h"
+Novo::Novo(float porcentagem){
+  this -> porcentagem = porcentagem;
+}
+void Novo::Imprime_Porcentagem_Adicional(){
+  cout<< " eh R$" << ((porcentagem/100)*preco)+preco << ".00";
+}
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <math.h>
+
+using namespace std;
+#include "novo.h"
+Novo::Novo(float porcentagem){
+  this -> porcentagem = porcentagem;
+}
+void Novo::Imprime_Porcentagem_Adicional(){
+  cout<< " eh R$" << ((porcentagem/100)*preco)+preco << ".00";
+}
+
+
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+Curso - engenharia eletrica
+Crie a classe Imóvel, que possui como atributos um endereço (nome e rua) e um preço. Esta classe não terá métodos, somente o construtor que irá inicializar os valores do seu atributo (endereço e preço).*/
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <math.h>
+
+using namespace std;
+
+#include "metodos_imovel.cpp"
+#include "metodos_novo.cpp"
+#include "metodos_velho.cpp"
+
+int main() {
+
+  int aux;
+  float percentual;
+  cout << "Este programa recebe os dados do seu imovel e retorna o percentual que vai ser adicionado ou descontado do valor inicial do imovel. Para isto, digite 1 para o imovel novo e 2 para o imovel velho."<< endl;
+  cin >> aux;
+  if (aux == 1){
+    cout <<"Qual o percentual a ser adicionado no valor do imovel?"<<endl;
+    cin >> percentual;
+    cout << "O preço a ser cobrado por esse imovel, com um adicional de R$" << percentual*1000 << ".00";
+    Novo imovelnovo = Novo(percentual);
+    imovelnovo.Imprime_Porcentagem_Adicional();
+  }
+  if (aux == 2){
+    cout <<"Qual o percentual a ser descontado no valor do imovel?"<<endl;
+    cin >> percentual;
+    cout << "O preço a ser cobrado por esse imóvel, com um adicional de R$" << percentual*1000 << ".00";
+    Velho imovelvelho = Velho(percentual);
+    imovelvelho.Imprime_Desconto();
+  }
+  if(aux!= 1 && aux != 2){
+    cout <<"Voce nao inseriu uma opcao valida";
+  }
+  return 0;
+  
+}

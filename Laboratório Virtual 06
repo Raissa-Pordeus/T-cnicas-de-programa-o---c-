@@ -1,0 +1,130 @@
+/*Raissa Taina Pordeus Ferreira
+Curso - engenharia elétrica
+Lab 06 
+Matrícula - 119211105*/
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+
+using namespace std;
+
+class Fracao{
+  private:
+  ///escolhi usar um terceiro atributo "escolha" para o programa passar de forma direta qual a operãcão desejada
+    int numerador, denominador, escolha;
+  public:
+    Fracao();//definicao public para o construtor
+    void setDenominad(int);
+    void setNumerad(int);
+    void setEscolh(int);
+    void multiplicacao(Fracao, Fracao);//metodo para multiplicar dois numeros do tipo fracao
+    void Divisao(Fracao, Fracao);//metodo para dividir dois numeros do tipo fracao
+    int ImprimirFracao(Fracao, Fracao);
+    void Pontoflutuante(Fracao, Fracao);
+
+  //metodos get (servem para atribuir valor a um atributo)
+    int getNumerador();
+    int getDenominador();
+    int getEscolha();
+};
+
+Fracao::Fracao(){ // costrutor para instanciacao dos atributos
+
+    numerador = 1; 
+    denominador = 1;
+    escolha = 0;
+}
+
+
+//Agora cada metodo deve ser implementado
+//metodos set
+
+void Fracao::setDenominad(int denominador){
+  this->denominador=denominador;
+}
+void Fracao::setNumerad(int numerador){
+  this->numerador=numerador;
+}
+void Fracao::setEscolh(int escolha){
+  this->escolha=escolha;
+}
+//metodos get
+int Fracao::getDenominador(){
+  return denominador;
+}
+int Fracao::getNumerador(){
+  return numerador;
+}
+int Fracao::getEscolha(){
+  return escolha;
+}
+//metodo para calcular a multiplicacao de fracoes
+void Fracao::multiplicacao(Fracao fracao1, Fracao fracao2){
+  int numerador1 = fracao1.numerador*fracao2.numerador;
+  this->numerador = numerador1;
+  int denominador1 = fracao1.denominador*fracao2.denominador;
+  this->denominador = denominador1;
+  
+}//metodo para calcular a divisao de fracoes
+void Fracao::Divisao(Fracao fracao1, Fracao fracao2){
+  int numerador1 = fracao1.numerador*fracao2.denominador;
+  this->numerador = numerador1;
+  int denominador1 = fracao1.denominador*fracao2.numerador;
+  this->denominador = denominador1;
+}
+//Desenvolvimento do metodo para imprimir a fracao resultante 
+int Fracao::ImprimirFracao(Fracao fracao1, Fracao fracao2){//o metodo imprime, de acordo com a escolha de operacao feita, a respectiva fracao
+  if(escolha == 1){
+    cout<<"O resultado da sua multiplicação em forma de fracao é: "<<numerador<<"/"<<denominador<<endl;
+  }
+  if(escolha == 2){
+    cout<<"O resultado da sua divisao em forma de fracao é: "<<numerador<<"/"<<denominador<<endl;
+  }
+  return 0;
+}
+//Desenvolvimento do metodo para imprimir a fracao resultante em ponto flutuante limitado a 4 casas decimais
+void Fracao::Pontoflutuante(Fracao fracao1, Fracao fracao2){
+  
+  if(escolha == 1){
+    cout<<fixed<<setprecision(4);
+    cout<<"O resultado da sua multiplicação em ponto flutuante é: "<<((float) numerador / denominador)<<endl;
+  }
+  if(escolha == 2){
+    cout<<fixed<<setprecision(4);
+    cout<<"O resultado da sua divisao em ponto flutuante é: "<<((float) numerador / denominador)<<endl;
+  }
+
+}
+int main() {
+  Fracao fracao1, fracao2, fr;
+  double aux, aux2;
+  int escolha;
+  //apresentacao ao usuario sobre a finalidade do programa
+  cout<<"Este programa tem como finalidade calcular e apresentar resultados das operacoes de multilicacao e divisao com fracoes."<<endl<<"Voce deseja fazer uma multiplicacao (aperte 1) ou uma divisao (aperte 2)?"<<endl;
+  cin>>escolha;
+  fr.setEscolh(escolha);//pegando o valor que representa qual a oprecao que deseja ser feita
+  //pwgando os valores do denominador e numerador
+  cout<<"Informe o numerador da fração 1"<<endl;
+  cin>>aux;
+  fracao1.setNumerad(aux);
+  cout<<"Informe o denominador da fração 1"<<endl;
+  cin>>aux;
+  fracao1.setDenominad(aux);
+  cout<<"Informe o numerador da fração 2"<<endl;
+  cin>>aux2;
+  fracao2.setNumerad(aux2);
+  cout<<"Informe o denominador da fração 2"<<endl;
+  cin>>aux2;
+  fracao2.setDenominad(aux2);
+  //chamando os metodos atraves da escolha do usuario
+  if (escolha == 1){
+    fr.multiplicacao(fracao1, fracao2);
+  }
+  if (escolha == 2){
+    fr.Divisao(fracao1, fracao2);
+  }
+    fr.ImprimirFracao(fracao1, fracao2);
+    fr.Pontoflutuante(fracao1, fracao2);
+
+}

@@ -1,0 +1,37 @@
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+Curso - Engenharia elétrica
+Lab 02 - Tem como finalidade apresentar duas formas de conversao de temperatura: Celsius - Fahrenheit e Fahrenheit - Celsius*/
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+union Conversao{
+  float cf, fc;//atributos para Celsius - Fahrenheit e Fahrenheit - Celsius, respectivamente.
+};
+
+int main() {
+  Conversao calculo;
+  int opcao;
+  cout<<"Aqui voce pode converter temperaturas tanto de Celsius - Fahrenheit como de Fahrenheit - Celsius."<<endl;
+  while(10){//condicao para que a pergunta sobre quala conversao desejada fique repetindo para o usuario
+    cout<<"Para fazer a conversao de Celsius - Fahrenheit, digite 1. Para fazer a de Fahrenheit - Celsius, digite 2"<<endl;
+    cin>> opcao;
+    if (opcao==1){
+      cout<<"Qual a sua temperatura atual em Celsius?"<<endl;
+      cin>>calculo.cf;
+      cout<<"Temperatura em Fahrenheit: "<<((calculo.cf*1.8)+32)<<endl;
+  //Multiplicamos a temperatura em ºC por 1,8 e somamos 32 ao resultado. 
+    }
+    if (opcao==2){
+      cout<<"Qual a sua temperatura atual em Fahrenheit?"<<endl;
+      cin>>calculo.fc;
+      cout<<"Temperatura em Celsius: "<<((calculo.fc-32)/1.8)<<endl;
+  //Subtraímos a temperatura em ºF por 32 e dividimos o resultado por 1,8. 
+    }
+    if (opcao != 1 && opcao !=2){
+      cout<<"Insira uma opcao valida"<<endl;
+    }
+  }
+}

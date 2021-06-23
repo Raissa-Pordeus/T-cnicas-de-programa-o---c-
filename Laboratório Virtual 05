@@ -1,0 +1,153 @@
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+curso - Engenharia eletrica
+Laboratorio virtual de programacao 05*/
+#include <iostream>
+#include <string>
+#include<iomanip>
+#include <cmath>
+using namespace std;
+
+class Elevador {
+  private:
+    int terreo;
+    int capacidade_total;
+    int pessoas_no_elevador;
+  public:
+    Elevador();
+    //vou considerar que a quantidade maxima de andares seja 20
+    int andares;
+    int sobe(int andares, int pessoas_no_elevador);
+    int desce(int andares, int pessoas_no_elevador);
+    int inicializa(int capacidade_total, int andares);
+    void setTerreo(int terreo);
+    void setCapacidade_total(int capacidade_total);
+    void setPessoas_no_elevador(int pessoas_no_elevador);
+    void setAndares(int andares);
+
+    int getTerreo();
+    int getCapacidade_total();
+    int getPessoas_no_elevador();
+    int getAndares();
+};
+//inicializando o construtor
+Elevador::Elevador(){
+  terreo=0;
+  //considerei que a quantidade maxima de pesssoas permitidas no elevador seja 15.
+  capacidade_total=15;
+  pessoas_no_elevador=0;
+  andares=0;
+}
+//inicializando os metodos set
+void Elevador::setTerreo(int terreo){
+  this->terreo = terreo;
+}
+void Elevador::setCapacidade_total(int capacidade_total){
+  this->capacidade_total = capacidade_total;
+}
+void Elevador::setPessoas_no_elevador(int pessoas_no_elevador){
+  this->pessoas_no_elevador = pessoas_no_elevador;
+}
+void Elevador::setAndares(int andares){
+  this->andares = andares;
+}
+//inicializando os metodos get
+int Elevador::getTerreo(){
+  return terreo;
+}
+int Elevador::getCapacidade_total(){
+  return capacidade_total;
+}
+int Elevador::getPessoas_no_elevador(){
+  return pessoas_no_elevador;
+}
+int Elevador::getAndares(){
+      return andares;
+}
+//metodo para subir 1 andar.
+int Elevador::sobe(int andares, int pessoas_no_elevador){
+  if(andares<20){
+    if(pessoas_no_elevador<15){
+      cout<<"O elevador nao esta cheio. Pode entrar. Voce subiu para o andar: "<<andares<<endl;
+      return andares;
+    }
+    if(pessoas_no_elevador>=15){
+      cout<<"O elevador esta cheio. Voce nao pode entrar. Aguarde alguem sair."<<endl;
+      return andares;
+    }
+  }
+  if(andares>=20){
+    if(pessoas_no_elevador>=15){
+      cout<<"O elevador esta cheio. Voce nao pode entrar. Aguarde alguem sair."<<endl;
+      return andares;
+    }
+    if(pessoas_no_elevador<15){
+      cout<<"O elevador nao esta cheio. Pode entrar. Voce esta no ultimo andar"<<endl;
+      return andares;
+    }
+    
+  }
+}
+//metodo para descer 1 andar.
+int Elevador::desce(int andares, int pessoas_no_elevador){
+  if(andares>0){
+    if(pessoas_no_elevador<15){
+      cout<<"O elevador nao esta cheio. Pode entrar. Voce desceu para o andar: "<<andares<<endl;
+      return andares;
+    }
+    if(pessoas_no_elevador>=15){
+      cout<<"O elevador esta cheio. Voce nao pode entrar. Aguarde alguem sair."<<endl;
+      return andares;
+    }
+  }
+  if(andares==0){
+    if(pessoas_no_elevador<15){
+      cout<<"O elevador nao esta cheio. Pode entrar. Voce ja esta no terreo"<<andares<<endl;
+      return andares;
+    }
+    if(pessoas_no_elevador>=15){
+      cout<<"O elevador esta cheio. Voce nao pode entrar. Aguarde alguem sair."<<endl;
+      return andares;
+    }
+    
+  }
+}
+int main() {
+  Elevador e1;
+  int terreo=0;
+  int capacidade_total=15;
+  int pessoas_no_elevador=0;
+  int andares=0;
+  int sair=1;
+  int opcao=0;
+  e1.setTerreo(terreo);
+  e1.setCapacidade_total(capacidade_total);
+  e1.setPessoas_no_elevador(pessoas_no_elevador);
+  //neste programa, tambem  utilizei o menu para que o usuario informasse o que ele deseja fazer.
+  while(sair != 2){
+    cout<<"Este programa pretende funcionar como um elevador, levando em consideração o total de andares no prédio, a capacidade do elevador, e quantas pessoas estão presentes nele. "<<endl;
+    cout<<"==========MENU============"<<endl;
+    cout<<"De acordo com as opcoes abaixo, informe o que voce deseja."<<endl;
+    cout<<"1 - subir um andar"<<endl;
+    cout<<"2 - descer um andar"<<endl;
+    cout<<"3 - sair"<<endl;
+    cin>>opcao;
+    switch ( opcao ){
+      case 3:
+        break;
+      case 1:
+        cout<<"quantas pessoas estao no elevador?"<<endl;
+        cin>>pessoas_no_elevador;
+        andares =  andares + 1;
+        e1.sobe(andares, pessoas_no_elevador);
+        break;  
+      case 2:
+      cout<<"quantas pessoas estao no elevador?"<<endl;
+        cin>>pessoas_no_elevador;
+        andares = andares - 1;
+        e1.desce(andares, pessoas_no_elevador);
+        break; 
+
+    }
+  }
+}

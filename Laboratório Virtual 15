@@ -1,0 +1,165 @@
+#ifndef PESSOA_H
+#define PESSOA_H
+
+class Pessoa {
+  string nome;
+  string CPF;
+  
+  public:
+    Pessoa(string, string);
+    void setNome(string);
+    void setCPF(string);
+    void imprimeNomeCPF( ) const;
+};
+#endif
+
+
+#include <iostream>
+#include <stdlib.h>
+//#include <stdio.h>
+#include <string>
+#include <math.h>
+
+using namespace std;
+
+#ifndef EMPREGADO_H  // evita erros de redefinição de arquivos
+#define EMPREGADO_H // define o arquivo
+
+#include "pessoa.h"
+
+class Empregado : public Pessoa{
+// numeroSecao, salarioBase (salário total sem os descontos) e IR (percentagem retida para o imposto de renda). 
+  private:
+  int numeroSecao;
+  float salarioBase, IR, salarioliquido;
+  public:
+
+  Empregado(int, float, float, string, string);
+  void setNumeroSecao(int);
+  void setSalarioBase (float);
+  void setIR(float);
+  int getNumeroSecao();
+  float getSalarioBase();
+  float getIR();
+  void calcularSalario();
+  void imprimesalarioliquido_numerosecao();
+};
+#endif
+
+
+#include <iostream>
+#include <stdlib.h>
+//#include <stdio.h>
+#include <string>
+#include <math.h>
+
+
+using namespace std;
+#include "pessoa.h"
+Pessoa::Pessoa(string nome, string CPF){
+  //nome = "vazio";
+ // CPF = "vazio";
+
+ this -> nome = nome;
+ this -> CPF = CPF;
+  
+}
+//metodos pedidos no enunciado
+void Pessoa::setNome(string nome){
+  this -> nome = nome;
+}
+void Pessoa::setCPF(string CPF){
+  this -> CPF = CPF;
+}
+void Pessoa::imprimeNomeCPF() const{
+  cout <<"Nome: " << nome << endl << "CPF: " << CPF << endl;
+}
+
+
+#include <iostream>
+#include <stdlib.h>
+//#include <stdio.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+#include "empregado.h"
+//#include "pessoa.h"
+
+//inicializando o construtor
+Empregado::Empregado( int numeroSecao, float salarioBase, float IR, string nome, string CPF) : Pessoa(nome, CPF){
+  
+  this -> numeroSecao = numeroSecao;
+  this -> salarioBase = salarioBase;
+  this -> IR = IR;
+}
+
+void Empregado::setSalarioBase (float salarioBase){
+  this -> salarioBase = salarioBase;
+}
+void Empregado::setNumeroSecao (int numeroSecao){
+  this -> numeroSecao = numeroSecao;
+}
+void Empregado::setIR(float IR){
+  this -> IR = IR;
+}
+int Empregado::getNumeroSecao(){
+  return numeroSecao;
+}
+float Empregado::getSalarioBase(){
+  return salarioBase;
+}
+float Empregado::getIR(){
+  return IR;
+}
+//metodos do enunciado
+
+void Empregado::calcularSalario(){
+//salário base menos o desconto do Imposto de Renda.
+  salarioliquido = salarioBase - (salarioBase*(IR/100));
+}
+void Empregado::imprimesalarioliquido_numerosecao(){
+  cout << "Salario Liquido: " << salarioliquido << endl << "Numero da secao: " << numeroSecao << endl;
+}
+
+
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+Curso - eng eletrica
+lab 15 - tp */
+#include <iostream>
+#include <cstdlib>
+//#include <stdio.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+
+
+#include "pessoa.h" 
+#include "empregado.h"
+
+int main() {
+  
+  string nome, CPF;
+  int numeroSecao;
+  float imposto_de_renda, salario_base;
+  
+
+  cout <<"Este programa recebe seus dados pessoais e retorna o seu salario liquido." << endl << "Qual o seu nome?"<<endl;
+  getline(cin, nome);
+  cout <<"Qual o seu CPF?"<<endl;
+  getline(cin, CPF);
+  cout <<"Qual o seu numero secao"<<endl;
+  cin >> numeroSecao;
+  cout <<"Qual o imposto de renda (IR)?" <<endl;
+  cin >> imposto_de_renda;
+  cout <<"Qual o seu salario base?"<<endl;
+  cin >> salario_base;
+  cout <<"Seu dados sao: " << endl;
+ Empregado empregado1 = Empregado (numeroSecao, salario_base, imposto_de_renda, nome, CPF); //alterado para passar os parametros definidos no costrutor(esses serão os valores iniciais dos atributos do objeto)
+  Pessoa pessoa1 = Pessoa(nome, CPF);
+  pessoa1.imprimeNomeCPF();
+  empregado1.calcularSalario();
+  empregado1.imprimesalarioliquido_numerosecao();
+  }

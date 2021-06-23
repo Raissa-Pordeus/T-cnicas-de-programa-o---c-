@@ -1,0 +1,134 @@
+/*Raissa Taina Pordeus Ferreira
+Matricula - 119211105
+curso - Engenharia eletrica
+Laboratorio virtual de programacao 04*/
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+
+using namespace std;
+
+class Pessoa{
+  private:
+    string nome, sexo;
+    int idade;
+    float altura, peso, IMC;
+  public:
+    
+    void setmod_Idade(int);//metodo para atribuir valores a idade da pessoa (Set)
+    void setIMC();//metodo para atribuir valores ao imc da pessoa
+    void setmod_Nome(string);//metodo para modificar o nome
+    void setmod_Sexo(string);
+    void setmod_Altura(float);//metodo para atribuir valores a altura 
+    void setmod_Peso(float);//metodo para atribuir valores ao peso
+    void setmod_IMC(float);
+    float calculoIMC(void);//metodo para calular o imc
+    void categoria(void);//metodo para avaliar em qual categoria o usuario se encaixa atraves do resultado do IMC
+
+    //metodos get (servem para atribuir valor a um atributo)
+    string getNome();
+    string getSexo();
+    int getIdade();
+    float getAltura();
+    float getPeso();
+    float getIMC();
+};
+//Agora cada metodo deve ser implementado
+//metodos set
+void Pessoa::setmod_Idade(int idade){
+  this->idade=idade;
+}
+void Pessoa::setmod_Nome(string nome){
+  this->nome=nome;
+}
+void Pessoa::setmod_Sexo(string sexo){
+  this->sexo=sexo;
+}
+void Pessoa::setmod_Altura(float altura){
+  this->altura=altura;
+}
+void Pessoa::setmod_Peso(float peso){
+  this->peso=peso;
+}
+void Pessoa::setmod_IMC(float IMC){
+  this->IMC=IMC;
+}
+
+//metodos get
+string Pessoa::getNome(){
+  return nome;
+}
+string Pessoa::getSexo(){
+  return sexo;
+}
+int Pessoa::getIdade(){
+  return idade;
+}
+float Pessoa::getAltura(){
+  return altura;
+}
+float Pessoa::getPeso(){
+  return peso;
+}
+float Pessoa::getIMC(){
+  return IMC;
+}
+//metodo para calcular o IMC
+float Pessoa::calculoIMC(void){
+  IMC = (peso/pow(altura, 2));
+  cout<<"seu imc e: "<<IMC<<endl;
+  return IMC;
+}
+//metodo para retornar em qual categria a pessoa se encaixa
+void Pessoa::categoria(void){
+  
+  if(IMC<=18.5){
+    cout<<"Voce esta abaixo do peso normal."<<endl;
+  }
+  if(IMC>18.5 && IMC<=25.0){
+    cout<<"Voce esta no peso normal."<<endl;
+  }
+  if(IMC>25.0 && IMC<=30.0){
+    cout<<"Voce esta acima do peso normal."<<endl;
+  }
+  if(IMC>30.0){
+    cout<<"Obesidade."<<endl;
+  }
+
+}
+int main() {
+  Pessoa pessoa1;
+  string nome, sexo;
+  int idade;
+  float altura, peso;
+
+
+  cout<<"Este programa tem como finalidade calcular seu indice de massa corporal e informar em qual categoria voce se encaixa.Para isso precisamos de algumas informacoes basicas."<<endl<<"Qual o seu nome?"<<endl;
+  getline(cin,nome);
+  pessoa1.setmod_Nome(nome);
+  setbuf(stdin, NULL);
+
+  cout<<"Qual o seu sexo?"<<endl;
+  getline(cin,sexo);
+  pessoa1.setmod_Sexo(sexo);
+  setbuf(stdin, NULL);
+
+  cout<<"Qual a sua idade?"<<endl;
+  cin>>idade;
+  pessoa1.setmod_Idade(idade);
+
+  cout<<"Qual a sua altura?"<<endl;
+  cin>>altura;
+  pessoa1.setmod_Altura(altura);
+
+  cout<<"Qual o seu peso?"<<endl;
+  cin>>peso;
+  pessoa1.setmod_Peso(peso);
+
+
+  pessoa1.calculoIMC();
+  pessoa1.categoria();
+
+  return 0;
+}

@@ -1,0 +1,208 @@
+#include <string>		// Necessário para usar strings
+using namespace std;
+
+#ifndef USUARIO_H
+#define USUARIO_H
+class Usuario{
+    private:
+        string nome, email;
+        int idade;
+    public:
+        Usuario(string, string, int);
+        string getNome();
+        string getEmail();
+        int getIdade();
+};
+#endif
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+#include "usuario.h"
+
+//construtor
+Usuario::Usuario(  string nome, string email, int idade){
+  this -> nome = nome;
+  this -> email = email;
+  this -> idade = idade;
+}
+//metodos get 
+string Usuario::getNome(){
+  return nome;
+}
+string Usuario::getEmail(){
+  return email;
+}
+int Usuario::getIdade(){
+    return idade;
+}
+
+
+#include <string>
+using namespace std;
+#include "usuario.h"
+
+#ifndef ALUNO_H
+#define ALUNO_H
+class Aluno: public Usuario {
+    private:
+        string numero_matricula, curso;
+    public:
+        Aluno(string, string, string, string, int);
+        string getNumero_matricula();
+        string getCurso();
+        void setNumeromatricula(string);
+        void setCurso(string);
+        void imprimir_dados();//para imprimir os dados de aluno de aocrdo com o que o usuario digitar
+};
+#endif;
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+#include "aluno.h"
+#include "usuario.h"
+//inicializando o construtor
+Aluno::Aluno(  string numero_matricula, string curso, string nome, string email, int idade) : Usuario(nome, email, idade){
+  this -> numero_matricula = numero_matricula;
+  this -> curso = curso;
+}
+//metodos set
+void Aluno::setNumeromatricula(string numero_matricula){
+    this -> numero_matricula = numero_matricula;
+}
+void Aluno::setCurso(string curso){
+    this -> curso = curso;
+}
+//metodos get
+string Aluno::getNumero_matricula(){
+    return numero_matricula;
+}
+string Aluno::getCurso(){
+    return curso;
+}
+void Aluno::imprimir_dados(){
+    cout<<"---------------------------Dados do aluno---------------------------"<<endl<<"Nome do aluno: "<<getNome()<<endl<<"Email: "<<getEmail()<<endl<<"Idade: "<<getIdade()<<endl<<"Matricula: "<<getNumero_matricula()<<endl<<"Curso: "<<getCurso()<<endl;
+}
+
+
+
+#include <string>
+using namespace std;
+#include "usuario.h"
+
+#ifndef PROFESSOR_H
+#define PROFESSOR_H
+class Professor: public Usuario {
+    private:
+        string departamento, sala;
+    public:
+        Professor(string, string, string, string, int);
+        string getDepartamento();
+        string getSala();
+        void setDepartamento(string);
+        void setSala(string);
+        void imprimir_dados_p();//para imprimir os dados de aluno de aocrdo com o que o usuario digitar
+};
+#endif;
+
+
+
+#include <iostream>
+#include <stdlib.h>
+#include <cstring>
+#include <math.h>
+
+using namespace std;
+#include "professor.h"
+#include "usuario.h"
+//inicializando o construtor
+Professor::Professor(  string departamento, string sala, string nome, string email, int idade) : Usuario(nome, email, idade){
+  this -> departamento = departamento;
+  this -> sala = sala;
+}
+//metodos set
+void Professor::setDepartamento(string departamento){
+    this -> departamento = departamento;
+}
+void Professor::setSala(string sala){
+    this -> sala = sala;
+}
+//metodos get
+string Professor::getDepartamento(){
+    return departamento;
+}
+string Professor::getSala(){
+    return sala;
+}
+void Professor::imprimir_dados_p(){
+    cout<<"---------------------------Dados do professor---------------------------"<<endl<<"Nome do professor: "<<getNome()<<endl<<"Email: "<<getEmail()<<endl<<"Idade: "<<getIdade()<<endl<<"Departamento: "<<getDepartamento()<<endl<<"Sala: "<<getSala()<<endl;
+}
+
+
+
+/*Raissa Taina Pordeus Ferreira
+Curso - eng. eletrica
+Matricula - 119211105
+Lab 17 _ tp*/
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+#include <stdio.h>
+using namespace std;
+
+#include "metodos_usuario.cpp" 
+#include "metodos_aluno.cpp"
+#include "metodos_professor.cpp"
+
+int main() {
+    string nome, email;
+    int idade, aux;
+    cout<<"Este programa imprime os seus dados academicos de acordo com o que voce inserir."<<endl<<"Qual o seu nome?"<<endl;
+    setbuf(stdin, NULL );
+    getline(cin, nome);
+    setbuf(stdin, NULL );
+    cout<<"Qual o seu email?"<<endl;
+    setbuf(stdin, NULL );
+    getline(cin, email);
+    setbuf(stdin, NULL );
+    cout<<"Qual a sua idade?"<<endl;
+    cin>>idade;
+    cout<<"Voce e aluno ou professor?"<<endl<<"1 - aluno"<<endl<<"2 - professor"<<endl;
+    cin>>aux;
+    if ( aux == 1){
+        string matricula, curso;
+        cout<<"Qual a sua matricula?"<<endl;
+        setbuf(stdin, NULL );
+        getline(cin, matricula);
+        setbuf(stdin, NULL );
+        cout<<"Qual o seu curso?"<<endl;
+        setbuf(stdin, NULL );
+        getline(cin, curso);
+        setbuf(stdin, NULL );
+        Aluno usuario(matricula, curso, nome, email, idade);
+        usuario.imprimir_dados();
+    }
+    if ( aux == 2){
+        string departamento, sala;
+        cout<<"Qual o seu departamento?"<<endl;
+        setbuf(stdin, NULL );
+        getline(cin, departamento);
+        setbuf(stdin, NULL );
+        cout<<"Qual a sua sala?"<<endl;
+        setbuf(stdin, NULL );
+        getline(cin, sala);
+        setbuf(stdin, NULL );
+        Professor usuario(departamento, sala, nome, email, idade);
+        usuario.imprimir_dados_p();
+    }
+}

@@ -1,0 +1,75 @@
+/*Crie uma classe que possui como atributos uma lista de nomes e o seu tamanho máximo. Crie um método para essa classe que ordena os nomes em ordem alfabética, um método que insere um nome na lista e um método que imprime essa lista ordenada. Não esqueça de criar a lista dinamicamente no construtor, a partir do valor do tamanho máximo passado por parâmetro. Não esqueça também de liberar no Destrutor o espaço de memória utilizado. 
+
+Raissa Tainá Pordeus Ferreira*/
+
+#ifndef LISTA_H
+#define LISTA_H
+
+class Lista{
+  private:
+    string *lista; //ponteiro do tipo string
+    int tamanhoMaximo; // tamanho maximo da lista de usuarios
+    int posicaoAtual; // posição atual livre da lista
+  public:
+    Lista();//construtor
+    int AdicionaNome(string);
+    void OrdenaLista(void);
+    void ImprimeLista(void);
+    ~Lista();//destrutor
+};
+#endif
+
+
+#include "lista.h"
+#include <cstring>
+//INICIALIZANDO O CONSTRUTOR
+Lista::Lista(){
+  tamanhoMaximo = 0;
+  posicaoAtual = 0;
+  lista = new string[tamanhoMaximo];
+}
+
+    //prtList = new string[ MaxList ]; //aloca dinamicamente o espaço
+
+int Lista::AdicionaNome(string Nome){
+  //se ainda tiver espaco disponivel n lista, o programa adiciona um nome
+  if(posicaoAtual <= tamanhoMaximo){
+    lista[posicaoAtual] = Nome;
+    posicaoAtual = posicaoAtual + 1;
+    }
+  return 0;
+}
+void Lista::OrdenaLista(){
+  //strcmp
+
+}
+Lista::~Lista(){
+  delete[] lista;
+}
+
+
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+#include <stdio.h>
+
+using namespace std;
+
+#include "lista.h"
+#include "lista.cpp"
+int main() {
+  Lista Nomes[5];//tamanho maximo da lista
+  string nome;
+  int aux = 1, indice = 0;
+  while(aux < 6){
+    cout << "Digite o nome da lista: " <<endl;
+    getline(cin, nome);
+    Nomes[indice].AdicionaNome(nome);
+    cout << "Deseja parar?" << endl;
+    cout << "[ 1 ]sim"<<endl<<"[ 2 ]nao " << endl;
+    cin >> aux;
+    indice = indice + 1;
+  }
+}
+
